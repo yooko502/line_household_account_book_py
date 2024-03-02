@@ -49,7 +49,7 @@ def handle_message(event):
             ]
         )
 
-        configuration.reply_message(event.reply_token, response.choices[0].message)
+        configuration.reply_message(event.reply_token, response.choices[0].message.content)
 
 if __name__ == "__main__":
       app.run(host="0.0.0.0", port=10000, debug=True)
