@@ -24,7 +24,7 @@ app = Flask(__name__)
 configuration = Configuration(os.environ['CHANNEL_ACCESS_TOKEN'])
 line_handler = WebhookHandler(os.environ['CHNNEL_SECRET_TOKEN'])
 
-@app.route('/callback', methods=['POST'])
+@app.route('/', methods=['POST'])
 def callback():
     signature = request.headers['X-Line-Signature']
 
