@@ -31,6 +31,7 @@ def callback():
     body = request.get_data(as_text=True)
     try:
         line_handler.handle(body, signature)
+        app.logger.debug("Request body: " + body)
     except InvalidSignatureError:
         abort(400)
 
@@ -38,6 +39,7 @@ def callback():
 
 @line_handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+        app.logger.debug("event.message.text: " + event.message.text)
         with ApiClient(configuration) as api_client:
                 line_bot_api = MessagingApi(api_client)
                 line_bot_api.reply_message_with_http_info(
