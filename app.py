@@ -33,7 +33,7 @@ def callback():
 
 @line_handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-        user_message = TextSendMessage(text=event.message.text)
+        user_message = event.message.text
         response = client.chat.completions.create(
             model = 'gpt-3.5-turbo',
             response_format={"type": "json_object"},
