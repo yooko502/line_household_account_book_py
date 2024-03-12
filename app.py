@@ -65,9 +65,9 @@ def handle_message(event):
         ws = connect_gspread(jsonf, spread_sheet_key)
         data = ws.get_all_values()
         row_number = len(data)
-        ws.update_cell(row_number + 1, SHEET_CELL.DATE , json_message['date'])
-        ws.update_cell(row_number + 1, SHEET_CELL.MEMO, json_message['memo'])
-        ws.update_cell(row_number + 1, SHEET_CELL.AMOUNT, json_message['amount'])
+        ws.update_cell(row_number + 1, SHEET_CELL['DATA'] , json_message['date'])
+        ws.update_cell(row_number + 1, SHEET_CELL['MEMO'], json_message['memo'])
+        ws.update_cell(row_number + 1, SHEET_CELL['AMOUNT'], json_message['amount'])
 
         configuration.reply_message(event.reply_token, TextSendMessage(text=response.choices[0].message.content))
 
