@@ -3,3 +3,5 @@ line-bot-sdk==3.9.0
 openai==1.13.3
 Gunicorn
 uvicorn
+gspread
+oauth2client
