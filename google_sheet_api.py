@@ -19,9 +19,9 @@ def connect_gspread(key, json_message):
     # ws = connect_gspread(jsonf, spread_sheet_key)
     data = ws.get_all_values()
     row_number = len(data)
-    if ws.is_empty():
+    if ws.row_count == 1 and ws.col_count == 1:
         ws.update_cell(1, 1 , '日期')
-        ws.update_cell(1, 2 , '花销内容')
+        ws.update_cell(1, 2 , '消费内容')
         ws.update_cell(1, 3 , '金额')
         ws.format(row=1, col=1, backgroundColor="#3CB371")
         ws.format(row=1, col=2, backgroundColor="#3CB371")
@@ -46,7 +46,7 @@ def update_users_sheet_key(user_id, google_sheet_key):
     data = ws.get_all_values()
     row_number = len(data)
     user_cell = ws.find(user_id)
-    if ws.is_empty():
+    if ws.row_count == 1 and ws.col_count == 1:
         ws.update_cell(1, 1 , 'user_id')
         ws.update_cell(1, 2 , 'user_key')
         ws.update_cell(row_number + 1, 1 , user_id)
