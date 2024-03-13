@@ -8,7 +8,7 @@ client.api_key = OPENAI_API_KEY
 
 def get_chatgpt_message(user_message):
     schema = {
-    "date": "YYYY-MM-DD",
+    "date": "YYYY/MM/DD",
     "amount": "number",
     "memo": "string"
     }
@@ -18,7 +18,7 @@ def get_chatgpt_message(user_message):
             messages = [
                 {
                     'role': 'system',
-                    'content': f"从以下字符串中提取date,amount,memo相关信息,date的格式为'YYYY-MM-DD',如果信息中不包含年份,补全为2024,并以json格式输出。JSON SCHEMA如下:{schema}"
+                    'content': f"从以下字符串中提取date,amount,memo相关信息,date的格式为'YYYY/MM/DD',如果信息中不包含年份,补全为2024,如果信息中不包含时间信息,补全为当天日期,并以json格式输出。JSON SCHEMA如下:{schema}"
                 }
                 , {
                     'role': 'user'
