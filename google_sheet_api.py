@@ -49,6 +49,8 @@ def update_users_sheet_key(user_id, google_sheet_key):
     if ws.is_empty():
         ws.update_cell(1, 1 , 'user_id')
         ws.update_cell(1, 2 , 'user_key')
+        ws.update_cell(row_number + 1, 1 , user_id)
+        ws.update_cell(row_number + 1, 2 , google_sheet_key)
     elif user_cell is not None:
         # 同一个用户更新为新的表单
         ws.update_cell(user_cell.row, user_cell.col + 1, google_sheet_key)
