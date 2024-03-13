@@ -22,10 +22,12 @@ def connect_gspread(key, json_message):
         ws.update_cell(1, 1 , '日期')
         ws.update_cell(1, 2 , '消费内容')
         ws.update_cell(1, 3 , '金额')
-        ws.format("A1:C1", backgroundColor= {
-            "red": 60.0,
-            "green": 179.0,
-            "blue": 113.0
+        ws.format("A1:C1", {
+            "backgroundColor": {
+                "red": 60.0,
+                "green": 179.0,
+                "blue": 113.0
+            }
         })
         ws.update_cell(row_number + 1, SHEET_CELL['DATA'] , json_message['date'])
         ws.update_cell(row_number + 1, SHEET_CELL['MEMO'], json_message['memo'])
