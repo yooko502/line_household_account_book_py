@@ -31,7 +31,7 @@ def callback():
 def handle_message(event):
         user_id = None
         if event.source.type == 'user':
-            user_id = event.source.userId
+            user_id = event.source.user_id
         user_message = event.message.text
         if user_id is None:
             configuration.reply_message(event.reply_token, TextSendMessage(text="请登录"))
