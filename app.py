@@ -29,29 +29,16 @@ def callback():
 @line_handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
         user_message = event.message.text
+        # 调用chat gpt 进行分类
         json_message = get_chatgpt_message(user_message)
         jsonf = "/etc/secrets/GOOGLE_SECRETS_JSON"
+        # 把信息登录到google sheet
+        # TODO: 1. line menu 接受用户的表格id，根据用户来更新用户的表格（spread_sheet_key 需要替换为用户的）
         connect_gspread(jsonf, spread_sheet_key, json_message)
-        return_message = f"""
-            === 账单已登录 ===
-            日期: {json_message['date']}
-            消费内容: {json_message['memo']}
-            金额: {json_message['amount']}
-        """
+        # line bot 返回信息
+        return_message = \
+        f"""=== 账单已登录 ===\n日期: {json_message['date']}\n消费内容: {json_message['memo']}\n金额: {json_message['amount']}"""
         configuration.reply_message(event.reply_token, TextSendMessage(text=return_message))
-
-# def connect_gspread(jsonf, key, json_message):
-#     scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
-#     credentials = ServiceAccountCredentials.from_json_keyfile_name(jsonf, scope)
-#     gc = gspread.authorize(credentials)
-#     SPREADSHEET_KEY = key
-#     ws = gc.open_by_key(SPREADSHEET_KEY).sheet1
-#     # ws = connect_gspread(jsonf, spread_sheet_key)
-#     data = ws.get_all_values()
-#     row_number = len(data)
-#     ws.update_cell(row_number + 1, SHEET_CELL['DATA'] , json_message['date'])
-#     ws.update_cell(row_number + 1, SHEET_CELL['MEMO'], json_message['memo'])
-#     ws.update_cell(row_number + 1, SHEET_CELL['AMOUNT'], json_message['amount'])
 
 if __name__ == "__main__":
       app.run(host="0.0.0.0", port=10000, debug=True)
