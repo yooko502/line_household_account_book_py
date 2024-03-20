@@ -4,7 +4,7 @@
     <title>Form Submission</title>
     <style>
         form {
-            max-width: 400px;
+            width: 100%;
             margin: 0 auto;
             padding: 20px;
             border: 1px solid #ccc;
@@ -28,10 +28,35 @@
             font-size: 16px;
             border-radius: 5px;
         }
+        @media screen and (max-width: 600px) {
+            form {
+                width: 90%;
+                margin: 0 auto;
+                padding: 20px;
+                border: 1px solid #ccc;
+                border-radius: 10px;
+            }
+
+            input[type="text"],
+            input[type="submit"] {
+                width: calc(100% - 40px);
+                margin-bottom: 20px;
+                padding: 10px;
+                border-radius: 5px;
+                box-sizing: border-box;
+            }
+
+            input[type="submit"] {
+                background-color: #62a0d2;
+                color: white;
+                border: none;
+                cursor: pointer;
+                font-size: 16px;
+            }
+        }
     </style>
 </head>
 <body>
-    <h2>個人利用の為</h2>
     <form action="/person_submit" method="post">
         <label for="username">Google Sheet Key:</label><br>
         <input type="text" id="person_key" name="person_key"><br>

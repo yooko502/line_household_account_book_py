@@ -15,11 +15,11 @@ def create_rich_menu():
         areas=[
                     RichMenuArea(
                         bounds=RichMenuBounds(x=0, y=0, width=520, height=585),
-                        action=MessageAction(label='Open Form', text='個人登録')
+                        action=MessageAction(label='Person Form', text='個人登録')
                     ),
                     RichMenuArea(
                         bounds=RichMenuBounds(x=520, y=0, width=520, height=585),
-                        action=MessageAction(label='Open Form', text='グループ登録')
+                        action=MessageAction(label='Group Form', text='グループ登録')
                     )
                 ]
     )
