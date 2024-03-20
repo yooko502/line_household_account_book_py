@@ -1,5 +1,5 @@
 from flask import Flask
-from linebot.models import RichMenu, RichMenuArea, RichMenuBounds, PostbackAction, MessageAction, RichMenuSize
+from linebot.models import RichMenu, RichMenuArea, RichMenuBounds, MessageAction, RichMenuSize
 import os
 from linebot import LineBotApi, WebhookHandler
 
@@ -18,7 +18,7 @@ def create_rich_menu():
                         action=MessageAction(label='Person Form', text='個人登録')
                     ),
                     RichMenuArea(
-                        bounds=RichMenuBounds(x=520, y=0, width=520, height=585),
+                        bounds=RichMenuBounds(x=1040, y=0, width=520, height=585),
                         action=MessageAction(label='Group Form', text='グループ登録')
                     )
                 ]

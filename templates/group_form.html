@@ -2,59 +2,7 @@
 <html>
 <head>
     <title>Form Submission</title>
-    <style>
-        form {
-            width: 100%;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        input[type="text"],
-        input[type="submit"] {
-            width: 100%;
-            margin-bottom: 10px;
-        }
-
-        input[type="submit"] {
-            background-color: #62a0d2;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            border-radius: 5px;
-        }
-        @media screen and (max-width: 600px) {
-            form {
-                width: 90%;
-                margin: 0 auto;
-                padding: 20px;
-                border: 1px solid #ccc;
-                border-radius: 10px;
-            }
-
-            input[type="text"],
-            input[type="submit"] {
-                width: calc(100% - 40px);
-                margin-bottom: 20px;
-                padding: 10px;
-                border-radius: 5px;
-                box-sizing: border-box;
-            }
-
-            input[type="submit"] {
-                background-color: #62a0d2;
-                color: white;
-                border: none;
-                cursor: pointer;
-                font-size: 16px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
     <form action="/group_submit" method="post">
