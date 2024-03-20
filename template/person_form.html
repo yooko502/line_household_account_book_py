@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Submission</title>
+</head>
+<body>
+    <h2>個人利用の為</h2>
+    <form action="/person_submit" method="post">
+        <label for="username">Google Sheet Key:</label><br>
+        <input type="text" id="person_key" name="person_key"><br>
+        <input type="hidden" name="line_user_id" value="{{ line_user_id }}">
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

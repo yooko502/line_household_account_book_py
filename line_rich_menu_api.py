@@ -1,5 +1,5 @@
 from flask import Flask
-from linebot.models import RichMenu, RichMenuArea, RichMenuBounds, URIAction, MessageAction, RichMenuSize
+from linebot.models import RichMenu, RichMenuArea, RichMenuBounds, PostbackAction, MessageAction, RichMenuSize
 import os
 from linebot import LineBotApi, WebhookHandler
 
@@ -9,17 +9,17 @@ line_handler = WebhookHandler(os.environ['CHNNEL_SECRET_TOKEN'])
 def create_rich_menu():
     rich_menu_to_create = RichMenu(
         size = RichMenuSize(height=585,width=1040),
-        selected=True,
+        selected=False,
         name="Rich menu",
         chat_bar_text="Tap here",
         areas=[
                     RichMenuArea(
                         bounds=RichMenuBounds(x=0, y=0, width=520, height=585),
-                        action=MessageAction(label='person', text='Hello, World!')
+                        action=PostbackAction(label='Open Form', data='open_person_form')
                     ),
                     RichMenuArea(
                         bounds=RichMenuBounds(x=520, y=0, width=520, height=585),
-                        action=MessageAction(label='group', text='Hello, World!2')
+                        action=PostbackAction(label='Open Form', data='open_group_form')
                     )
                 ]
     )
