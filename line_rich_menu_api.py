@@ -15,7 +15,7 @@ def create_rich_menu():
         areas=[
                     RichMenuArea(
                         bounds=RichMenuBounds(x=0, y=0, width=520, height=585),
-                        action=PostbackAction(label='Open Form', data='open_person_form')
+                        action=MessageAction(label='Open Form', text='個人登録')
                     ),
                     RichMenuArea(
                         bounds=RichMenuBounds(x=520, y=0, width=520, height=585),

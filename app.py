@@ -39,7 +39,7 @@ def handle_message(event):
             configuration.reply_message(event.reply_token, TextSendMessage(text="请登录"))
             return
         # rich menu event for person
-        if event.postback.data == 'open_person_form':
+        if user_message == '個人登録':
             message = TemplateSendMessage(
                 alt_text='Please input your google sheet key',
                 template=ButtonsTemplate(
