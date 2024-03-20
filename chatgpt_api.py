@@ -1,3 +1,4 @@
+import datetime
 from openai import OpenAI
 import os
 import json
@@ -18,7 +19,7 @@ def get_chatgpt_message(user_message):
             messages = [
                 {
                     'role': 'system',
-                    'content': f"从以下字符串中提取date,amount,memo相关信息,date的格式为'YYYY/MM/DD',如果信息中不包含年份,补全为2024,如果信息中不包含时间信息,补全为当天日期,并以json格式输出。JSON SCHEMA如下:{schema}"
+                    'content': f"从以下字符串中提取date,amount,memo相关信息,如果不含date信息,则date补充为空值,JSON SCHEMA如下:{schema}"
                 }
                 , {
                     'role': 'user'
@@ -26,6 +27,11 @@ def get_chatgpt_message(user_message):
                 }
             ]
         )
-
     json_message = json.loads(response.choices[0].message.content)
+    if not json_message.get('date'):
+        json_message['date'] = datetime.date.today().strftime("%Y/%m/%d")
+    if json_message['date'].startswith("YYYY"):
+        current_year = datetime.datetime.now().year
+        json_message['date'] = json_message['date'].replace("YYYY", str(current_year))
+
     return json_message
