@@ -43,9 +43,9 @@
 <body>
     <form action="/group_submit" method="post">
         <label for="googleSheetKey">Google Sheet Key:</label><br>
-        <input type="text" id="group_key" name="group_key"><br>
+        <input type="text" id="group_key" name="group_key" required><br>
         <label for="username">Username:</label><br>
-        <input type="text" id="username" name="username"><br>
+        <input type="text" id="username" name="username" required><br>
         <input type="hidden" name="line_user_id" value="{{ line_user_id }}">
         <input type="submit" value="Submit">
     </form>

@@ -43,7 +43,7 @@
 <body>
     <form action="/person_submit" method="post">
         <label for="username">Google Sheet Key:</label><br>
-        <input type="text" id="person_key" name="person_key"><br>
+        <input type="text" id="person_key" name="person_key" required><br>
         <input type="hidden" name="line_user_id" value="{{ line_user_id }}">
         <input type="submit" value="Submit">
     </form>
