@@ -9,7 +9,7 @@ import re
 
 from line_rich_menu_api import create_rich_menu
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 
 configuration = LineBotApi(os.environ['CHANNEL_ACCESS_TOKEN'])
 line_handler = WebhookHandler(os.environ['CHNNEL_SECRET_TOKEN'])
@@ -80,7 +80,7 @@ def handle_message(event):
 @app.route("/person_form", methods=["GET"])
 def person_form():
      line_user_id = request.args.get('line_user_id')
-     return render_template("template/person_form.html", line_user_id=line_user_id)
+     return render_template("person_form.html", line_user_id=line_user_id)
 
 @app.route('/person_submit', methods=['POST'])
 def submit():
