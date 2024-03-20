@@ -74,7 +74,7 @@ def update_users_sheet_key(user_id, google_sheet_key, username=None):
     elif user_cell is not None and username is None:
         # 同一个用户更新为新的表单
         ws.update_cell(user_cell.row, user_cell.col + 1, google_sheet_key)
-        ws.update_cell(user_cell.row, user_cell.col + 2, username)
+        ws.update_cell(user_cell.row, user_cell.col + 2, '')
     elif user_cell is not None:
         ws.update_cell(user_cell.row, user_cell.col + 1, google_sheet_key)
         ws.update_cell(user_cell.row, user_cell.col + 2, username)
