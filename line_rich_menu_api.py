@@ -15,11 +15,11 @@ def create_rich_menu():
         areas=[
                     RichMenuArea(
                         bounds=RichMenuBounds(x=0, y=0, width=520, height=585),
-                        action=MessageAction(label='update your google sheet', text='Hello, World!')
+                        action=MessageAction(label='person', text='Hello, World!')
                     ),
                     RichMenuArea(
                         bounds=RichMenuBounds(x=520, y=0, width=520, height=585),
-                        action=MessageAction(label='memo together', text='Hello, World!2')
+                        action=MessageAction(label='group', text='Hello, World!2')
                     )
                 ]
     )
