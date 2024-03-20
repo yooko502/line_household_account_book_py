@@ -7,6 +7,8 @@ from chatgpt_api import get_chatgpt_message
 from google_sheet_api import connect_gspread, get_users_sheet_key, update_users_sheet_key
 import re
 
+from line_rich_menu_api import create_rich_menu
+
 app = Flask(__name__)
 
 configuration = LineBotApi(os.environ['CHANNEL_ACCESS_TOKEN'])
@@ -60,5 +62,6 @@ def handle_message(event):
         f"""=== 账单已登录 ===\n日期: {json_message['date']}\n消费内容: {json_message['memo']}\n金额: {json_message['amount']}"""
         configuration.reply_message(event.reply_token, TextSendMessage(text=return_message))
 
+create_rich_menu()
 if __name__ == "__main__":
       app.run(host="0.0.0.0", port=10000, debug=True)
