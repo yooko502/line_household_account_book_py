@@ -13,13 +13,26 @@ def get_chatgpt_message(user_message):
     "amount": "number",
     "memo": "string"
     }
+    prompt = f"""
+        Your task is to perform the following actions: \
+        1 - Analyze the information in the text and extract the date, amount, and consumption content \
+        2 - If the date provided by the text does not contain year information, use YYYY instead of the year. \
+        3 - The date format is generated in YYYY/MM/DD \
+        Use the following json_object format:\
+        {schema}
+        Text: <{user_message}>
+    """
     response = client.chat.completions.create(
             model = 'gpt-4-turbo-preview',
             response_format={"type": "json_object"},
+            temperature=1,
+            top_p=1,
+            frequency_penalty=0,
+            presence_penalty=0,
             messages = [
                 {
                     'role': 'system',
-                    'content': f"从以下字符串中提取date,amount,memo相关信息,如果日期不符合年份的情况(例:0201,03/01,3/1),请用YYYY-MM-DD填充,并以json格式输出。JSON SCHEMA如下:{schema}"
+                    'content': prompt
                 }
                 , {
                     'role': 'user'
