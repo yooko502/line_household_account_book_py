@@ -2,6 +2,9 @@ from flask import Flask
 from linebot.models import RichMenu, RichMenuArea, RichMenuBounds, MessageAction, RichMenuSize
 import os
 from linebot import LineBotApi, WebhookHandler
+from linebot.v3.messaging import (
+    CreateRichMenuAliasRequest
+)
 
 configuration = LineBotApi(os.environ['CHANNEL_ACCESS_TOKEN'])
 line_handler = WebhookHandler(os.environ['CHNNEL_SECRET_TOKEN'])
@@ -48,3 +51,15 @@ def create_rich_menu():
 
     configuration.set_default_rich_menu(rich_menu_id)
     configuration.set_default_rich_menu(total_rich_menu_id)
+
+    alias_a = CreateRichMenuAliasRequest(
+            rich_menu_alias_id='richmenu-alias-a',
+            rich_menu_id=rich_menu_id
+        )
+    configuration.create_rich_menu_alias(alias_a)
+
+    alias_b = CreateRichMenuAliasRequest(
+            rich_menu_alias_id='richmenu-alias-b',
+            rich_menu_id=total_rich_menu_id
+        )
+    configuration.create_rich_menu_alias(alias_b)
