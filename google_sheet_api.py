@@ -10,13 +10,15 @@ SHEET_CELL = {
 }
 jsonf = "/etc/secrets/GOOGLE_SECRETS_JSON"
 
+scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
+credentials = ServiceAccountCredentials.from_json_keyfile_name(jsonf, scope)
+gc = gspread.authorize(credentials)
+SPREADSHEET_KEY = os.environ['SPREAD_SHEET_KEY']
+ws = gc.open_by_key(SPREADSHEET_KEY).sheet1
+
 # 更新每个人的表单
 def update_google_sheet_content(key, json_message, username=None):
-    scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
-    credentials = ServiceAccountCredentials.from_json_keyfile_name(jsonf, scope)
-    gc = gspread.authorize(credentials)
     ws = gc.open_by_key(key).sheet1
-    # ws = connect_gspread(jsonf, spread_sheet_key)
     data = ws.get_all_values()
     row_number = len(data)
     if len(data[0]) == 0:
@@ -31,7 +33,7 @@ def update_google_sheet_content(key, json_message, username=None):
             }
         })
         if username is not None:
-            ws.update_cell(1, 4 , '消费者')
+            ws.update_cell(1, 4 , '支付者')
             ws.format("D1", {
                 "backgroundColor": {
                     "red": 60.0,
@@ -53,9 +55,6 @@ def update_google_sheet_content(key, json_message, username=None):
 
 # 将用户的key登录
 def update_users_sheet_key(user_id, google_sheet_key, username=None):
-    scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
-    credentials = ServiceAccountCredentials.from_json_keyfile_name(jsonf, scope)
-    gc = gspread.authorize(credentials)
     # 记录数据用的表单key
     SPREADSHEET_KEY = os.environ['SPREAD_SHEET_KEY']
     ws = gc.open_by_key(SPREADSHEET_KEY).sheet1
@@ -84,13 +83,17 @@ def update_users_sheet_key(user_id, google_sheet_key, username=None):
 
 # 获取用户key
 def get_users_sheet_key(user_id):
-    scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
-    credentials = ServiceAccountCredentials.from_json_keyfile_name(jsonf, scope)
-    gc = gspread.authorize(credentials)
-    SPREADSHEET_KEY = os.environ['SPREAD_SHEET_KEY']
-    ws = gc.open_by_key(SPREADSHEET_KEY).sheet1
-    # ws = connect_gspread(jsonf, spread_sheet_key)
     user_cell = ws.find(user_id)
     google_sheet_key_cell = ws.cell(user_cell.row, user_cell.col + 1).value
     username = ws.cell(user_cell.row, user_cell.col + 2).value 
     return [google_sheet_key_cell, username]
+
+# TODO: 以后更新为团体记录时获得自己输入的总计
+def get_total(user_key, username=None):
+    ws = gc.open_by_key(user_key).sheet1
+    data = ws.get_all_values()
+    row_number = len(data)
+    range_data = ws.get_values(f"C2:C{row_number}")
+    total = sum(int(i[0]) for i in range_data)
+
+    return total

@@ -41,7 +41,7 @@ def get_chatgpt_message(user_message):
             ]
         )
     json_message = json.loads(response.choices[0].message.content)
-    if json_message['date'] == "YYYY-MM-DD":
+    if json_message['date'] == "YYYY/MM/DD":
         json_message['date'] = datetime.date.today().strftime("%Y/%m/%d")
     if json_message['date'].startswith("YYYY"):
         current_year = datetime.datetime.now().year

@@ -4,7 +4,7 @@ from linebot.exceptions import InvalidSignatureError
 from linebot.models import *
 import os
 from chatgpt_api import get_chatgpt_message
-from google_sheet_api import update_google_sheet_content, get_users_sheet_key, update_users_sheet_key
+from google_sheet_api import get_total, update_google_sheet_content, get_users_sheet_key, update_users_sheet_key
 import re
 
 from line_rich_menu_api import create_rich_menu
@@ -66,7 +66,20 @@ def handle_message(event):
             # 发送消息给用户
             configuration.reply_message(event.reply_token, message)
             return
-            
+
+        user_google_sheet_key, username = get_users_sheet_key(user_id)
+        # 调用chat gpt 进行分类
+        json_message = get_chatgpt_message(user_message)
+
+        # 把信息登录到google sheet
+        update_google_sheet_content(user_google_sheet_key, json_message, username)
+        
+        if user_message == '合計':
+            total = get_total(user_google_sheet_key)
+            return_message = \
+            f"""=== 已消费 ===\合计: {str(total)}"""
+            configuration.reply_message(event.reply_token, TextSendMessage(text=return_message))
+            return
         # 判断用户是否要登录自己的表格
         # pattern = r"google_sheet_key\[(.*?)\]"
         # match = re.match(pattern, user_message)
@@ -79,13 +92,7 @@ def handle_message(event):
         #     return_message = "你的账簿已经登录，现在可以更新你的账单了"
         #     configuration.reply_message(event.reply_token, TextSendMessage(text=return_message))
         #     return
-        
-        user_google_sheet_key, username = get_users_sheet_key(user_id)
-        # 调用chat gpt 进行分类
-        json_message = get_chatgpt_message(user_message)
 
-        # 把信息登录到google sheet
-        update_google_sheet_content(user_google_sheet_key, json_message, username)
         # line bot 返回信息
         return_message = \
         f"""=== 账单已登录 ===\n日期: {json_message['date']}\n消费内容: {json_message['memo']}\n金额: {json_message['amount']}"""

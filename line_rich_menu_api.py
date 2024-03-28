@@ -24,9 +24,27 @@ def create_rich_menu():
                 ]
     )
 
+    total_rich_menu_to_create = RichMenu(
+        size = RichMenuSize(height=585,width=1040),
+        selected=False,
+        name="Total Rich menu",
+        chat_bar_text="合計",
+        areas=[
+                    RichMenuArea(
+                        bounds=RichMenuBounds(x=0, y=0, width=1040, height=585),
+                        action=MessageAction(label='Person Form', text='合計')
+                    ),
+                ]
+    )
+
     rich_menu_id = configuration.create_rich_menu(rich_menu=rich_menu_to_create)
+    total_rich_menu_id = configuration.create_rich_menu(rich_menu=total_rich_menu_to_create)
 
     with open("static/richmessage.png", 'rb') as f:
         configuration.set_rich_menu_image(rich_menu_id, 'image/png', f)
+    
+    with open("static/richmenu_total.png", 'rb') as f:
+        configuration.set_rich_menu_image(total_rich_menu_id, 'image/png', f)
 
     configuration.set_default_rich_menu(rich_menu_id)
+    configuration.set_default_rich_menu(total_rich_menu_id)
