@@ -2,9 +2,6 @@ from flask import Flask
 from linebot.models import RichMenu, RichMenuArea, RichMenuBounds, MessageAction, RichMenuSize
 import os
 from linebot import LineBotApi, WebhookHandler
-from linebot.v3.messaging import (
-    CreateRichMenuAliasRequest
-)
 
 configuration = LineBotApi(os.environ['CHANNEL_ACCESS_TOKEN'])
 line_handler = WebhookHandler(os.environ['CHNNEL_SECRET_TOKEN'])
