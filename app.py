@@ -3,9 +3,8 @@ from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import *
 import os
-from chatgpt_api import get_chatgpt_message
-from google_sheet_api import get_total, update_google_sheet_content, get_users_sheet_key, update_users_sheet_key
-import re
+from chatgpt_api import financial_analysis_gpt_message, get_chatgpt_message
+from google_sheet_api import get_all_data, get_total, update_google_sheet_content, get_users_sheet_key, update_users_sheet_key
 
 from line_rich_menu_api import create_rich_menu
 
@@ -36,8 +35,8 @@ def handle_message(event):
             user_id = event.source.user_id
         user_message = event.message.text
         if user_id is None:
-            configuration.reply_message(event.reply_token, TextSendMessage(text="请登录"))
-            return
+            return configuration.reply_message(event.reply_token, TextSendMessage(text="请登录"))
+
         # rich menu event for person
         if user_message == '個人登録':
             message = TemplateSendMessage(
@@ -50,8 +49,7 @@ def handle_message(event):
                 )
             )
             # 发送消息给用户
-            configuration.reply_message(event.reply_token, message)
-            return
+            return configuration.reply_message(event.reply_token, message)
         
         if user_message == 'グループ登録':
             message = TemplateSendMessage(
@@ -64,8 +62,7 @@ def handle_message(event):
                 )
             )
             # 发送消息给用户
-            configuration.reply_message(event.reply_token, message)
-            return
+            return configuration.reply_message(event.reply_token, message)
 
         user_google_sheet_key, username = get_users_sheet_key(user_id)
 
@@ -73,8 +70,12 @@ def handle_message(event):
             total = get_total(user_google_sheet_key)
             return_message = \
             f"""=== 已消费 ===\n{str(total)}"""
-            configuration.reply_message(event.reply_token, TextSendMessage(text=return_message))
-            return
+            return configuration.reply_message(event.reply_token, TextSendMessage(text=return_message))
+        
+        if user_message == '消費分析':
+            all_data = get_all_data(user_google_sheet_key)
+            return_message = financial_analysis_gpt_message(all_data)
+            return configuration.reply_message(event.reply_token, TextSendMessage(text=return_message))
 
         # 调用chat gpt 进行分类
         json_message = get_chatgpt_message(user_message)
@@ -83,7 +84,7 @@ def handle_message(event):
         update_google_sheet_content(user_google_sheet_key, json_message, username)
         return_message = \
         f"""=== 账单已登录 ===\n日期: {json_message['date']}\n消费内容: {json_message['memo']}\n金额: {json_message['amount']}"""
-        configuration.reply_message(event.reply_token, TextSendMessage(text=return_message))
+        return configuration.reply_message(event.reply_token, TextSendMessage(text=return_message))
 
 @app.route("/person_form", methods=["GET"])
 def person_form():

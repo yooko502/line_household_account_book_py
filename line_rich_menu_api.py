@@ -8,22 +8,26 @@ line_handler = WebhookHandler(os.environ['CHNNEL_SECRET_TOKEN'])
 
 def create_rich_menu():
     rich_menu_to_create = RichMenu(
-        size = RichMenuSize(height=843,width=2500),
+        size = RichMenuSize(height=1686,width=2500),
         selected=False,
         name="Rich menu",
         chat_bar_text="Tap here",
         areas=[
                     RichMenuArea(
-                        bounds=RichMenuBounds(x=0, y=0, width=834, height=843),
+                        bounds=RichMenuBounds(x=0, y=843, width=1250, height=843),
                         action=MessageAction(label='Person Form', text='個人登録')
                     ),
                     RichMenuArea(
-                        bounds=RichMenuBounds(x=835, y=0, width=834, height=843),
+                        bounds=RichMenuBounds(x=1251, y=843, width=1250, height=843),
                         action=MessageAction(label='Group Form', text='グループ登録')
                     ),
                     RichMenuArea(
-                        bounds=RichMenuBounds(x=1669, y=0, width=832, height=843),
+                        bounds=RichMenuBounds(x=0, y=0, width=844, height=843),
                         action=MessageAction(label='Total', text='合計')
+                    ),
+                    RichMenuArea(
+                        bounds=RichMenuBounds(x=1251, y=0, width=832, height=843),
+                        action=MessageAction(label='Financial', text='消費分析')
                     )
                 ]
     )

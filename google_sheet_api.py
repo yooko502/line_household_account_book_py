@@ -97,3 +97,9 @@ def get_total(user_key, username=None):
     total = sum(int(i[0]) for i in range_data)
 
     return total
+
+# TODO: 以后更新为团体记录时自己的分析
+def get_all_data(user_key, username=None):
+    ws = gc.open_by_key(user_key).sheet1
+    data = ws.get_all_values()
+    return str(data)
