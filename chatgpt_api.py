@@ -79,7 +79,7 @@ def financial_analysis_gpt_message(user_message):
         
         response = client.chat.completions.create(
             model = 'gpt-4-turbo-preview',
-            response_format={"type": "json_object"},
+            response_format={"type": "text"},
             max_tokens=4030,
             temperature=1,
             top_p=1,

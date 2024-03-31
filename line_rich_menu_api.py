@@ -14,19 +14,19 @@ def create_rich_menu():
         chat_bar_text="Tap here",
         areas=[
                     RichMenuArea(
-                        bounds=RichMenuBounds(x=0, y=843, width=1250, height=843),
+                        bounds=RichMenuBounds(x=0, y=0, width=1250, height=843),
                         action=MessageAction(label='Person Form', text='個人登録')
                     ),
                     RichMenuArea(
-                        bounds=RichMenuBounds(x=1251, y=843, width=1250, height=843),
+                        bounds=RichMenuBounds(x=1251, y=0, width=1250, height=843),
                         action=MessageAction(label='Group Form', text='グループ登録')
                     ),
                     RichMenuArea(
-                        bounds=RichMenuBounds(x=0, y=0, width=844, height=843),
+                        bounds=RichMenuBounds(x=0, y=843, width=844, height=843),
                         action=MessageAction(label='Total', text='合計')
                     ),
                     RichMenuArea(
-                        bounds=RichMenuBounds(x=1251, y=0, width=832, height=843),
+                        bounds=RichMenuBounds(x=1251, y=843, width=832, height=843),
                         action=MessageAction(label='Financial', text='消費分析')
                     )
                 ]
