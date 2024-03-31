@@ -24,7 +24,7 @@ def get_chatgpt_message(user_message):
     """
     response = client.chat.completions.create(
             model = 'gpt-4-turbo-preview',
-            response_format={"type": "text"},
+            response_format={"type": "json_object"},
             temperature=1,
             top_p=1,
             frequency_penalty=0,
