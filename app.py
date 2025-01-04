@@ -111,6 +111,10 @@ def group_submit():
     update_users_sheet_key(user_id, group_key, username)
     return "グループのGoogle sheet登録しました。"
 
+@app.route("/test", methods=["GET"])
+def test_action():
+     return "call server"
+
 create_rich_menu()
 if __name__ == "__main__":
       app.run(host="0.0.0.0", port=10000, debug=True)
