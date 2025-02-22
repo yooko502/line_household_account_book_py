@@ -31,10 +31,23 @@ def create_rich_menu():
                     )
                 ]
     )
+    try:
+        rich_menu_id = configuration.create_rich_menu(rich_menu=rich_menu_to_create)
+        print(f"Rich Menu created with ID: {rich_menu_id}")
+    except Exception as e:
+        print(f"Error creating rich menu: {e}")
+        return
 
-    rich_menu_id = configuration.create_rich_menu(rich_menu=rich_menu_to_create)
+    try:
+        with open("static/richmessage.png", 'rb') as f:
+            configuration.set_rich_menu_image(rich_menu_id, 'image/png', f)
+        print("Rich Menu image uploaded")
+    except Exception as e:
+        print(f"Error uploading image: {e}")
+        return
 
-    with open("static/richmessage.png", 'rb') as f:
-        configuration.set_rich_menu_image(rich_menu_id, 'image/png', f)
-
-    configuration.set_default_rich_menu(rich_menu_id)
+    try:
+        configuration.set_default_rich_menu(rich_menu_id)
+        print("Rich Menu set as default")
+    except Exception as e:
+        print(f"Error setting default rich menu: {e}")
