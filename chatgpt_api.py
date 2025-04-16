@@ -6,7 +6,7 @@ import json
 OPENAI_API_KEY = os.environ['OPENAI_API_KEY']
 client = OpenAI()
 client.api_key = OPENAI_API_KEY
-client.base_url = "https://api.deepseek.com"
+client.base_url = "https://api.deepseek.com/v1"
 
 def get_chatgpt_message(user_message):
     schema = {
