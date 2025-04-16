@@ -6,6 +6,7 @@ import json
 OPENAI_API_KEY = os.environ['OPENAI_API_KEY']
 client = OpenAI()
 client.api_key = OPENAI_API_KEY
+client.base_url = "https://api.deepseek.com"
 
 def get_chatgpt_message(user_message):
     schema = {
@@ -23,7 +24,7 @@ def get_chatgpt_message(user_message):
         Text: <{user_message}>
     """
     response = client.chat.completions.create(
-            model = 'gpt-4-turbo-preview',
+            model = 'deepseek-chat',
             response_format={"type": "json_object"},
             temperature=1,
             top_p=1,
@@ -76,7 +77,7 @@ def financial_analysis_gpt_message(user_message):
                 """
         
         response = client.chat.completions.create(
-            model = 'gpt-4-turbo-preview',
+            model = 'deepseek-chat',
             response_format={"type": "text"},
             max_tokens=4030,
             temperature=1,
